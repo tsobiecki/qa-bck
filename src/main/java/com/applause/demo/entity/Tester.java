@@ -33,11 +33,11 @@ public class Tester {
     @Column
     private Date lastLogin;
 
-    @ManyToMany(fetch= FetchType.LAZY)
+    @OneToMany(fetch= FetchType.LAZY)
     @JoinColumn(name="tester_testerId")
     private List<Device> devices;
 
     @OneToMany(fetch=FetchType.LAZY)
-    @JoinColumn(name="tester_testerId")
+    @JoinColumn(name="bug_bugId")
     private List<Bug> bugs;
 }

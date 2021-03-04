@@ -1,9 +1,7 @@
 package com.applause.demo.repository.impl;
 
-import com.applause.demo.repository.TesterRepository;
-import com.applause.demo.entity.Bug;
-import com.applause.demo.entity.Device;
 import com.applause.demo.entity.Tester;
+import com.applause.demo.repository.TesterRepository;
 import org.springframework.stereotype.Repository;
 
 import java.io.BufferedReader;
@@ -13,7 +11,10 @@ import java.io.IOException;
 import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+import java.util.Set;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
@@ -22,7 +23,9 @@ public class TesterRepositoryImpl implements TesterRepository {
 
     @Override
     public List<Tester> getTesters(List<String> countries) {
-        return new ArrayList<>(getTestersFromCsv());
+        return getTestersFromCsv().stream()
+                .filter(tester -> countries.isEmpty() || countries.contains(tester.getCountry()))
+                .collect(Collectors.toList());
     }
 
     @Override

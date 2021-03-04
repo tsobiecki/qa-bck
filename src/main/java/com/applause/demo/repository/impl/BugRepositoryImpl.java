@@ -22,7 +22,8 @@ public class BugRepositoryImpl implements BugRepository {
         HashMap<Integer, Integer> newHashMap = new HashMap<>();
         testersIds.forEach(id -> newHashMap.put(id, 0));
         getBugsFromCsvFile().stream()
-                .filter(bug -> (testersIds.contains(bug.getTester().getId()) && devicesIds.contains(bug.getDevice().getId())))
+                .filter(bug -> testersIds.contains(bug.getTester().getId()))
+                .filter(bug -> devicesIds.isEmpty() || devicesIds.contains(bug.getDevice().getId()))
                 .forEach(bug -> {
                     Integer bugValue = newHashMap.get(bug.getTester().getId());
                     newHashMap.put(bug.getTester().getId(), bugValue + 1);

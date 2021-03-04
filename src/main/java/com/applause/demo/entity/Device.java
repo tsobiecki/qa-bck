@@ -23,8 +23,8 @@ public class Device {
     @Column
     private String description;
 
-    @OneToMany
-    @JoinColumn(name="device_deviceId")
+    @OneToMany(fetch=FetchType.LAZY)
+    @JoinColumn(name="tester")
     private List<Tester> testers;
 
     @OneToMany(fetch=FetchType.LAZY)

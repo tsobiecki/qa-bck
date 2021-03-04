@@ -26,17 +26,15 @@ public class TesterServiceImpl implements TesterService {
     @Override
     public List<TesterDto> getTestersBy(List<String> countries, Set<Integer> devicesIds) {
         List<Tester> testers = testerRepository.getTesters(countries);
-
         HashMap<Integer, Integer> bugs = bugRepository.getBugsBy(testers.stream().map(Tester::getId).collect(Collectors.toList()), devicesIds);
 
-        List<TesterDto> testeritos = testers.stream().map(tester -> TesterDto.builder()
+        return testers.stream().map(tester -> TesterDto.builder()
                 .fullName(tester.getFirstName() + " " + tester.getLastName())
                 .experience(bugs.get(tester.getId()))
                 .build())
+                .filter(tester -> tester.getExperience() != 0)
                 .sorted(Comparator.comparingInt(TesterDto::getExperience).reversed())
                 .collect(Collectors.toList());
-        System.out.println(testeritos);
-        return testeritos;
     }
 
     @Override
