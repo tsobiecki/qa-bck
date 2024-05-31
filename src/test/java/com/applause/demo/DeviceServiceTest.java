@@ -2,7 +2,9 @@ package com.applause.demo;
 
 import com.applause.demo.dto.DeviceDto;
 import com.applause.demo.entity.Device;
+import com.applause.demo.repository.CellRepository;
 import com.applause.demo.repository.DeviceRepository;
+import com.applause.demo.service.CellService;
 import com.applause.demo.service.DeviceService;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -20,6 +22,12 @@ public class DeviceServiceTest {
 
     @Autowired
     private DeviceService deviceService;
+
+    @Autowired
+    private CellService cellService;
+
+    @MockBean
+    private CellRepository cellRepository;
 
     @MockBean
     private DeviceRepository deviceRepository;
@@ -39,5 +47,10 @@ public class DeviceServiceTest {
         List<DeviceDto> result = deviceService.getDevices();
 
         assertThat(result).usingRecursiveFieldByFieldElementComparator().isEqualTo(expected);
+    }
+
+    @Test
+    public void ssda() {
+        cellService.filterByList("sdada");
     }
 }
